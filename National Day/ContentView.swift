@@ -15,16 +15,26 @@ struct ContentView: View {
     @State private var songRating = 5.0
     var body: some View {
         TabView{
-        VStack {
-            Text("National Day Is Coming!")
-                .foregroundColor(.red)
-                .font(.largeTitle)
-            Text("🇸🇬")
-                .font(.system(size: flagSize))
-            Text("\(flagSize)")
-            Slider(value:$flagSize, in: 50...500)
+            ZStack{
+                if flagSize > 60.0{
+                    LinearGradient(
+                        gradient: Gradient(colors: [Color.red, Color.white]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing)
+                    .edgesIgnoringSafeArea(.all)
+                }
+                VStack {
+                Text("National Day Is Coming!")
+                        .foregroundColor(.red)
+                  .font(.largeTitle)
+                Text("🇸🇬")
+                  .font(.system(size: flagSize))
+                Text("\(flagSize)")
+                Slider(value:$flagSize, in: 50...500)
+                }
+                
             }
-        .tabItem{
+       .tabItem{
             Label("Homepage", systemImage: "person")
             }
         Form {
@@ -40,7 +50,7 @@ struct ContentView: View {
             }
           Section("Other important info") {
             Toggle("Do you like national day celebrations?", isOn: $likesCeleb)
-            Stepper("You have attended National Day Parade for \(attendedParade)", value: $attendedParade)
+            Stepper("You have attended National Day Parade  \(attendedParade) times", value: $attendedParade)
             Text("Your rating for '2023 National Day Song Shine Your Light': \(songRating)")
             Slider(value: $songRating, in: 0...10)
            }
